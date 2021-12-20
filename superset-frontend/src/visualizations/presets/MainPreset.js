@@ -70,6 +70,7 @@ import {
   EchartsTreemapChartPlugin,
   EchartsMixedTimeseriesChartPlugin,
   EchartsTreeChartPlugin,
+  EchartsMapsINAChartPlugin
 } from '@superset-ui/plugin-chart-echarts';
 import {
   SelectFilterPlugin,
@@ -114,6 +115,7 @@ export default class MainPreset extends Preset {
         new EchartsTreemapChartPlugin().configure({ key: 'treemap_v2' }),
         new EchartsGaugeChartPlugin().configure({ key: 'gauge_chart' }),
         new EchartsGraphChartPlugin().configure({ key: 'graph_chart' }),
+        new EchartsMapsINAChartPlugin().configure({ key: 'graph_maps_ina' }),
         new EchartsRadarChartPlugin().configure({ key: 'radar' }),
         new EchartsMixedTimeseriesChartPlugin().configure({
           key: 'mixed_timeseries',

@@ -24,7 +24,7 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { styled } from '@superset-ui/core';
-import { ECharts, init } from 'echarts';
+import * as echarts from 'echarts';
 import { EchartsHandler, EchartsProps, EchartsStylesProps } from '../types';
 
 const Styles = styled.div<EchartsStylesProps>`
@@ -40,11 +40,12 @@ function Echart(
     eventHandlers,
     zrEventHandlers,
     selectedValues = {},
+    additionalData
   }: EchartsProps,
   ref: React.Ref<EchartsHandler>,
 ) {
   const divRef = useRef<HTMLDivElement>(null);
-  const chartRef = useRef<ECharts>();
+  const chartRef = useRef<echarts.ECharts>();
   const currentSelection = useMemo(
     () => Object.keys(selectedValues) || [],
     [selectedValues],
@@ -58,7 +59,7 @@ function Echart(
   useEffect(() => {
     if (!divRef.current) return;
     if (!chartRef.current) {
-      chartRef.current = init(divRef.current);
+      chartRef.current = echarts.init(divRef.current);
     }
 
     Object.entries(eventHandlers || {}).forEach(([name, handler]) => {
@@ -71,6 +72,13 @@ function Echart(
       chartRef.current?.getZr().on(name, handler);
     });
 
+    if (additionalData) {
+      if (additionalData.maps) {
+        additionalData.maps.forEach(x => {
+          echarts.registerMap(x.name, x.value);
+        })
+      }
+    }
     chartRef.current.setOption(echartOptions, true);
   }, [echartOptions, eventHandlers, zrEventHandlers]);
 

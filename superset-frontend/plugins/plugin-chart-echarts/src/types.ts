@@ -30,6 +30,14 @@ export type EchartsStylesProps = {
   width: number;
 };
 
+export interface AdditionalData {
+  maps?: MapsObject[]
+}
+
+export interface MapsObject {
+  name: string,
+  value: string
+}
 export interface EchartsProps {
   height: number;
   width: number;
@@ -37,6 +45,7 @@ export interface EchartsProps {
   eventHandlers?: EventHandlers;
   zrEventHandlers?: EventHandlers;
   selectedValues?: Record<number, string>;
+  additionalData?: AdditionalData,
   forceClear?: boolean;
 }
 
