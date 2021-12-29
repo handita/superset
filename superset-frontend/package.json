@@ -105,6 +105,8 @@
     "@superset-ui/legacy-preset-chart-deckgl": "^0.4.13",
     "@superset-ui/legacy-preset-chart-nvd3": "^0.18.25",
     "@superset-ui/plugin-chart-echarts": "^0.18.25",
+    "@superset-ui/plugin-chart-peta-leaflet": "^0.0.0",
+    "@superset-ui/plugin-chart-react-leaflet": "^0.0.0",
     "@superset-ui/plugin-chart-pivot-table": "^0.18.25",
     "@superset-ui/plugin-chart-table": "^0.18.25",
     "@superset-ui/plugin-chart-word-cloud": "^0.18.25",

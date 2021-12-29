@@ -1,0 +1,41 @@
+{
+  "name": "@superset-ui/plugin-chart-drilldown-map-coord",
+  "version": "0.0.3",
+  "description": "Superset Chart - Drilldown Map Coordinate",
+  "sideEffects": false,
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "files": [
+    "esm",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache-superset/superset-ui.git"
+  },
+  "keywords": [
+    "superset"
+  ],
+  "author": "Superset",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/apache-superset/superset-ui/issues"
+  },
+  "homepage": "https://github.com/apache-superset/superset-ui#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@superset-ui/chart-controls": "0.18.2",
+    "@superset-ui/core": "0.18.2",
+    "@types/mathjs": "^6.0.7",
+    "d3-array": "^1.2.0",
+    "echarts": "^5.2.0",
+    "jquery": "^3.6.0",
+    "lodash": "^4.17.15",
+    "mathjs": "^8.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
+  }
+}

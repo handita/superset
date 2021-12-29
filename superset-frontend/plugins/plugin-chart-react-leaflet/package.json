@@ -1,0 +1,36 @@
+{
+  "name": "@superset-ui/plugin-chart-react-leaflet",
+  "version": "0.0.0",
+  "description": "Superset Chart - React Leaflet",
+  "sideEffects": false,
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "files": [
+    "esm",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache-superset/superset-ui.git"
+  },
+  "keywords": [
+    "superset"
+  ],
+  "author": "Superset",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/apache-superset/superset-ui/issues"
+  },
+  "homepage": "https://github.com/apache-superset/superset-ui#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@superset-ui/chart-controls": "^0.18.2",
+    "@superset-ui/core": "^0.18.2",
+    "leaflet": "^1.7.1",
+    "prop-types": "^15.7.2",
+    "react-leaflet": "^3.2.2",
+    "topojson-client": "^3.1.0"
+  }
+}

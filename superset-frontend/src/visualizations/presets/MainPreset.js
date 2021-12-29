@@ -32,6 +32,8 @@ import MapBoxChartPlugin from '@superset-ui/legacy-plugin-chart-map-box';
 import PairedTTestChartPlugin from '@superset-ui/legacy-plugin-chart-paired-t-test';
 import ParallelCoordinatesChartPlugin from '@superset-ui/legacy-plugin-chart-parallel-coordinates';
 import PartitionChartPlugin from '@superset-ui/legacy-plugin-chart-partition';
+import PetaLeafletChartPlugin from '@superset-ui/plugin-chart-peta-leaflet';
+import ReactLeafletChartPlugin from '@superset-ui/plugin-chart-react-leaflet';
 import PivotTableChartPlugin from '@superset-ui/legacy-plugin-chart-pivot-table';
 import RoseChartPlugin from '@superset-ui/legacy-plugin-chart-rose';
 import SankeyChartPlugin from '@superset-ui/legacy-plugin-chart-sankey';
@@ -128,6 +130,8 @@ export default class MainPreset extends Preset {
         new MapBoxChartPlugin().configure({ key: 'mapbox' }),
         new PairedTTestChartPlugin().configure({ key: 'paired_ttest' }),
         new ParallelCoordinatesChartPlugin().configure({ key: 'para' }),
+        new PetaLeafletChartPlugin().configure({ key: 'leaflet' }),
+        new ReactLeafletChartPlugin().configure({ key: 'react-leaflet' }),
         new PartitionChartPlugin().configure({ key: 'partition' }),
         new EchartsPieChartPlugin().configure({ key: 'pie' }),
         new PivotTableChartPlugin().configure({ key: 'pivot_table' }),
