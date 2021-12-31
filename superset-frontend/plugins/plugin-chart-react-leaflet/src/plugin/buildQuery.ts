@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { buildQueryContext, QueryFormData } from '@superset-ui/core';
+import { buildQueryContext, ensureIsArray, QueryFormData } from '@superset-ui/core';
 
 /**
  * The buildQuery function is used to create an instance of QueryContext that's
@@ -33,10 +33,29 @@ import { buildQueryContext, QueryFormData } from '@superset-ui/core';
  * if a viz needs multiple different result sets.
  */
 export default function buildQuery(formData: QueryFormData) {
-  return buildQueryContext(formData, baseQueryObject => [
-    {
+  const { groupBy, lat, long, idv } = formData;
+  return buildQueryContext(formData, baseQueryObject => {
+    const colset: any[] = [];
+    let col: any;
+    let i: number;
+    // eslint-disable-next-line no-plusplus
+    for (i = 0; groupBy !== undefined && i < groupBy.length; i++) {
+      col = new Set([...ensureIsArray<string>(groupBy[i])]);
+      colset[i] = {
+        ...baseQueryObject,
+        columns: [...col],
+      };
+    }
+    col = new Set([
+      ...ensureIsArray<string>(lat),
+      ...ensureIsArray<string>(long),
+      ...ensureIsArray<string>(idv),
+    ]);
+    colset[i] = {
       ...baseQueryObject,
-    },
-  ]);
+      columns: [...col],
+    };
+    return colset;
+  });
 }
 

@@ -27,6 +27,8 @@ interface PetaLeafletCustomizeProps {
   headerText: string;
 }
 
+export type EventHandlers = Record<string, { (props: any): void }>;
+
 export type PetaLeafletQueryFormData = QueryFormData & PetaLeafletStylesProps & PetaLeafletCustomizeProps;
 
 export type PetaLeafletProps = PetaLeafletStylesProps &

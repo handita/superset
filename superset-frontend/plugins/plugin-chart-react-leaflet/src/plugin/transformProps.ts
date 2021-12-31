@@ -26,7 +26,7 @@ export default function transformProps(chartProps: ChartProps) {
    *
    * The transformProps function is also quite useful to return
    * additional/modified props to your data viz component. The formData
-   * can also be accessed from your PetaLeaflet.tsx file, but
+   * can also be accessed from your PetaRutePenerbangan.tsx file, but
    * doing supplying custom props here is often handy for integrating third
    * party libraries that rely on specific props.
    *
@@ -48,32 +48,70 @@ export default function transformProps(chartProps: ChartProps) {
    * function during development with hot reloading, changes won't
    * be seen until restarting the development server.
    */
-  const NOOP = () => {};
-  const { width, height, formData, queriesData, hooks } = chartProps;
-  const { onAddFilter = NOOP } = hooks;
+  const { width, height, formData, queriesData, hooks, filterState } = chartProps;
   const {
-    linearColorScheme,
-    numberFormat,
-    selectCountry,
-    level1,
-    warnaMin,
-    warnaTengah,
-    warnaMaks,
+    groupBy = [],
+    level1Map,
+    level2Map,
+    level1Key,
+    level2Key,
+    minValue,
+    maxValue,
+    minColor,
+    midColor,
+    maxColor,
   } = formData;
-  let max_level = 0;
-  const levels = [];
+  const maps = [level1Map, level2Map];
+  const keys = [level1Key, level2Key];
+  const datah: any[] = [];
+  let coordData: any[] = [];
+  let i: number;
+  // eslint-disable-next-line no-plusplus
+  for (i = 0; i < groupBy.length; i++) {
+    datah[i] = queriesData[i].data;
+  }
+  if (queriesData.length > groupBy.length) {
+    coordData = queriesData[i].data;
+  }
+
+  const { setDataMask = () => { } } = hooks;
+
+  const selectedValues = (filterState.selectedValues || []).reduce(
+    (acc: Record<string, number>, selectedValue: string) => {
+      const index = 0;
+      return {
+        ...acc,
+        [index]: selectedValue,
+      };
+    },
+    {},
+  );
+  const mapsUrl: string[] = [];
+  const key: string[] = [];
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < groupBy.length; i++) {
+    mapsUrl[i] = maps[i];
+    key[i] = keys[i];
+  }
+
   return {
-    width,
     height,
-    max_level,
-    warnaMin,
-    warnaTengah,
-    warnaMaks,
-    levels,
-    onChange: onAddFilter,
-    data_1: queriesData[0].data,
-    country: selectCountry ? String(selectCountry).toLowerCase() : null,
-    linearColorScheme,
-    numberFormat,
+    width,
+    setDataMask,
+    groupBy,
+    selectedValues,
+    formData,
+    mapsUrl,
+    keys: key,
+    color_range: [
+      `rgba(${minColor.r},${minColor.g},${minColor.b},${minColor.a})`,
+      `rgba(${midColor.r},${midColor.g},${midColor.b},${midColor.a})`,
+      `rgba(${maxColor.r},${maxColor.g},${maxColor.b},${maxColor.a})`,
+    ],
+    minValue,
+    maxValue,
+    data: datah,
+    coordData,
   };
 }
+

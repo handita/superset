@@ -23,51 +23,50 @@
 // @ts-ignore
 // @ts-nocheck
 import React, { useEffect, createRef, useState, useRef, useMemo, useCallback } from 'react';
-import { styled, ApiV1, DatasourceType } from '@superset-ui/core';
+import { styled, DataMask, ApiV1, DatasourceType } from '@superset-ui/core';
 import L from 'leaflet';
 import { MapContainer, GeoJSON, TileLayer } from 'react-leaflet';
 import { PetaLeafletStylesProps } from './types';
-import prov from './maps/prov.json';
 
 import 'leaflet/dist/leaflet.css';
 
 
 
+//const Container = styled.div<PetaLeafletStylesProps>`
+//`;
 const Container = styled.div<PetaLeafletStylesProps>`
-`;
-// const Container = styled.div<PetaLeafletStylesProps>`
-//  position: relative;    
+ position: relative;    
 
-//  & > * {
-//      position: relative;
-//      top: 0;
-//      left: 0;
-//      height: ${({ height }) => height};
-//      width: ${({ width }) => width};
-//  }
+ & > * {
+     position: relative;
+     top: 0;
+     left: 0;
+     height: ${({ height }) => height};
+     width: ${({ width }) => width};
+ }
 
 
-//  .leaflet-control-zoom > .leaflet-bar > .leaflet-control{
-//      z-index: 10000
-//  }
+ .leaflet-control-zoom > .leaflet-bar > .leaflet-control{
+     z-index: 10000
+ }
 
-//  .leaflet-control-layers-list{ 
-//      width:auto;
-//      background-position:3px 50% ;
-//      padding:3px;
-//      text-decoration:none;
-//      line-height:36px;
-//      text-align: left;
-//      text-transform: uppercase;
-//    }
+ .leaflet-control-layers-list{ 
+     width:auto;
+     background-position:3px 50% ;
+     padding:3px;
+     text-decoration:none;
+     line-height:36px;
+     text-align: left;
+     text-transform: uppercase;
+   }
 
-// `
+`
 
 export default function MapLeaflet(props) {
 
   const [currentMap, setCurrentMap] = useState(null);;
   const [isReady, setIsReady] = useState(false);
-  const { data, height, width, formData, datasource } = props;
+  const { data, height, width, formData, setDataMask, groupBy, selectedValues, mapsUrl, keys, colorRange, minValue, maxValue, coordData } = props;
   const rootElem = createRef<HTMLDivElement>();
   // const [key, setKey] = useState(null);
 
@@ -119,6 +118,63 @@ export default function MapLeaflet(props) {
     }
   }
 
+  // const handleChange = useCallback(
+  //   (values: string[]) => {
+  //     if (!formData.emitFilter) {
+  //       return;
+  //     }
+
+  //     const groupbyValues = values;
+
+  //     const dataMask: DataMask = {
+  //       extraFormData: {
+  //         filters:
+  //           values.length === 0
+  //             ? []
+  //             : [
+  //               {
+  //                 col: groupBy[level.current],
+  //                 op: 'IN',
+  //                 val: values,
+  //               },
+  //             ],
+  //       },
+  //       filterState: {
+  //         value: groupbyValues.length ? groupbyValues : null,
+  //         selectedValues: values.length ? values : null,
+  //       },
+  //     };
+
+  //     if (JSON.stringify(values) === JSON.stringify(['Back'])) {
+  //       if (level.current > 0) {
+  //         level.current -= 1;
+  //         crossf.current.pop();
+  //         setDataMask(crossf.current[crossf.current.length - 1]);
+  //       }
+  //     } else {
+  //       if (level.current < groupby.length - 1) {
+  //         crossf.current.push(dataMask);
+  //       }
+  //       setDataMask(dataMask);
+  //     }
+  //   },
+  //   [groupBy, setDataMask, selectedValues],
+  // );
+
+  // const eventHandlers: EventHandlers = {
+  //   click: props => {
+  //     const { name } = props;
+  //     const values = Object.values(selectedValues);
+  //     if (props.event.target.style.text === 'Back') {
+  //       handleChange(['Back']);
+  //     } else if (values.includes(name)) {
+  //       handleChange(values.filter(v => v !== name));
+  //     } else {
+  //       handleChange([name]);
+  //     }
+  //   },
+  // };
+
   // const position = [51.505, -0.09]
   const position = [-2.2753379, 119.4176271];
 
@@ -138,7 +194,6 @@ export default function MapLeaflet(props) {
 
         <GeoJSON attribution="&copy; credits BPS RI" data={currentMap}
           onEachFeature={onEachFeature}
-          style={ }
         />
       </MapContainer>
     </Container>
